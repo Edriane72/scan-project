@@ -2,7 +2,6 @@
 .gradle/
 /build/
 gradle-dist/
-gradle-wrapper.zip
 build_output.log
 build_output.txt
 build_final.txt
