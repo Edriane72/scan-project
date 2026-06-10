@@ -1,0 +1,29 @@
+# Gradle files
+.gradle/
+/build/
+gradle-dist/
+gradle-wrapper.zip
+build_output.log
+build_output.txt
+build_final.txt
+.vscode/
+
+# Android
+**/build/
+**/captures/
+.externalNativeBuild/
+.cxx/
+
+# Local configuration
+local.properties
+
+#Android Studio/VSCode
+*.iml
+.idea/
+.vscode/
+
+# Kotlin config
+*.kotlin_module
+
+# Misc
+.DS_Store

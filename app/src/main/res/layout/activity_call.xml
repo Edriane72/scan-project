@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="32dp"
+        android:paddingBottom="24dp">
+
+        <ImageView
+            android:id="@+id/imageAvatar"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/call_hud_avatar_circle"
+            android:contentDescription="Contact avatar" />
+
+        <TextView
+            android:id="@+id/textCallerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Unknown Number"
+            android:textColor="#212121"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/textCallTimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="00:00"
+            android:textColor="#757575"
+            android:textSize="18sp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/textCallState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Dialing..."
+            android:textColor="#757575"
+            android:textSize="14sp"
+            android:gravity="center" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/buttonMute"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/call_hud_button_circle"
+                    android:src="@android:drawable/ic_lock_silent_mode"
+                    android:tint="#616161"
+                    android:contentDescription="Mute" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mute"
+                    android:textColor="#212121"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/buttonKeypad"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/call_hud_button_circle"
+                    android:src="@android:drawable/ic_dialog_dialer"
+                    android:tint="#616161"
+                    android:contentDescription="Keypad" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Keypad"
+                    android:textColor="#212121"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/buttonSpeaker"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/call_hud_button_circle"
+                    android:src="@android:drawable/ic_lock_silent_mode_off"
+                    android:tint="#616161"
+                    android:contentDescription="Speaker" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Speaker"
+                    android:textColor="#212121"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/buttonAddCall"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/call_hud_button_circle"
+                    android:src="@android:drawable/ic_menu_add"
+                    android:tint="#616161"
+                    android:contentDescription="Add Call" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Call"
+                    android:textColor="#212121"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/buttonHold"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/call_hud_button_circle"
+                    android:src="@android:drawable/ic_media_pause"
+                    android:tint="#616161"
+                    android:contentDescription="Hold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hold"
+                    android:textColor="#212121"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/buttonRecord"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/call_hud_button_circle"
+                    android:src="@android:drawable/ic_menu_edit"
+                    android:tint="#616161"
+                    android:contentDescription="Record" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Record"
+                    android:textColor="#212121"
+                    android:textSize="12sp"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/buttonEndCall"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:background="@drawable/call_hud_end_circle"
+                android:src="@android:drawable/ic_menu_call"
+                android:tint="#FFFFFF"
+                android:contentDescription="End call" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/keypadOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C0000000"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:background="#FFFFFFFF"
+            android:padding="24dp"
+            android:layout_margin="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dialpad"
+                android:textColor="#212121"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:paddingBottom="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="1"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="2"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="3"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="4"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="5"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="6"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="7"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="8"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="9"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="*"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="0"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp"
+                        android:text="#"
+                        android:textColor="#212121"
+                        android:background="@drawable/call_hud_button_circle" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonKeypadClose"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/call_hud_end_circle"
+                android:text="Close"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>
