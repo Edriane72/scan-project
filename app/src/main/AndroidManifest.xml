@@ -3,7 +3,7 @@
 
 <application
     android:allowBackup="true"
-    android:label="SCAN Prototype"
+    android:label="SCAN"
     android:theme="@style/Theme.SCANPrototype">
 
     <activity

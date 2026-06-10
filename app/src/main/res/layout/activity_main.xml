@@ -13,9 +13,12 @@
             android:id="@+id/textTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SCAN Spam Call Mitigation"
+            android:text="Spam Call: Analyze and Negate"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="28sp"
             android:textStyle="bold"
+            android:gravity="center"
+            android:textAlignment="center"
             android:paddingBottom="12dp" />
 
         <TextView
@@ -67,27 +70,19 @@
             android:gravity="center_vertical"
             android:paddingVertical="12dp">
 
-            <TextView
-                android:id="@+id/textHudStatus"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="HUD: Enabled"
-                android:textColor="#FF000000"
-                android:textStyle="bold" />
-
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switchHudToggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:text="Enable Call HUD" />
         </LinearLayout>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/switchAdvancedSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Advanced Heuristic Settings" />
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switchAdvancedSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Advanced Heuristic Settings" />
 
     <LinearLayout
         android:id="@+id/layoutAdvancedSettings"

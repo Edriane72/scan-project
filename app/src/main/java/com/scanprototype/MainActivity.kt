@@ -1,6 +1,7 @@
 package com.scanprototype
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import android.view.View
@@ -21,11 +22,9 @@ class MainActivity : AppCompatActivity() {
 
         val hudEnabled = HudSettings.isHudEnabled(this)
         binding.switchHudToggle.isChecked = hudEnabled
-        updateHudStatusLabel(hudEnabled)
 
         binding.switchHudToggle.setOnCheckedChangeListener { _, isChecked ->
             HudSettings.setHudMode(this, if (isChecked) HudMode.ANDROID_CALL_HUD else HudMode.OFF)
-            updateHudStatusLabel(isChecked)
         }
 
         binding.switchAdvancedSettings.setOnCheckedChangeListener { _, isChecked ->
@@ -82,7 +81,21 @@ class MainActivity : AppCompatActivity() {
             Toast.LENGTH_LONG
         ).show()
 
-        binding.textVerdict.text = "${result.verdict} (score=${result.score})"
+        binding.textVerdict.text =
+            "${result.verdict} (score=${result.score})"
+
+        binding.textVerdict.setTextColor(
+            when (result.verdict) {
+                com.scanprototype.scan.Verdict.ALLOW ->
+                    Color.parseColor("#4CAF50")
+
+                com.scanprototype.scan.Verdict.WARN ->
+                    Color.parseColor("#FF9800")
+
+                com.scanprototype.scan.Verdict.BLOCK ->
+                    Color.parseColor("#F44336")
+            }
+        )
         binding.textDetails.text = result.details.joinToString(separator = "\n")
         updateLogText()
 
@@ -97,10 +110,6 @@ class MainActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
-    }
-
-    private fun updateHudStatusLabel(enabled: Boolean) {
-        binding.textHudStatus.text = if (enabled) "HUD: Enabled" else "HUD: Disabled"
     }
 
     private fun updateLogText() {
