@@ -1,5 +1,6 @@
 package com.scanprototype
 
+import android.view.View
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -30,9 +31,20 @@ class IncomingCallActivity : AppCompatActivity() {
 
         binding.textCallerNumber.text = number
 
-        if (verdict == "WARN") {
-            showWarnPopup()
-        }
+        when (verdict) {
+
+            "WARN" -> {
+                showWarnPopup()
+            }
+
+            "BLOCK" -> {
+                binding.buttonAnswer.visibility = View.GONE
+
+                binding.buttonDecline.text = "Dismiss"
+
+                showBlockedPopup()
+            }
+    }
 
         binding.buttonDecline.setOnClickListener {
             finish()
@@ -57,6 +69,19 @@ class IncomingCallActivity : AppCompatActivity() {
 
             finish()
         }
+    }
+
+    private fun showBlockedPopup() {
+        AlertDialog.Builder(this)
+            .setTitle("SCAN Protection")
+            .setMessage(
+                "Potential Malicious Caller.\n\nCall Blocked."
+            )
+            .setCancelable(false)
+            .setPositiveButton("OK") { _, _ ->
+                finish()
+            }
+            .show()
     }
 
     private fun showWarnPopup() {
