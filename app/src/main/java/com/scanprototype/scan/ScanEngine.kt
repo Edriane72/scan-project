@@ -10,6 +10,16 @@ enum class Verdict {
     BLOCK
 }
 
+object HeuristicSettings {
+
+    var timeWeight = 2
+    var velocityWeight = 3
+    var spoofWeight = 5
+
+    var warnThreshold = 4
+    var blockThreshold = 7
+}
+
 data class SimulationResult(
     val number: String,
     val verdict: Verdict,
@@ -65,8 +75,14 @@ object StorageLayer {
 
 object DataNormalizer {
     fun normalize(rawId: String): String {
-        return rawId.replace(Regex("[^0-9]"), "")
+        var number = rawId.replace(Regex("[^0-9]"), "")
+
+    if (number.startsWith("09")) {
+        number = "63" + number.substring(1)
     }
+
+        return number
+}
 }
 
 fun process2_WhitelistCheck(normalizedId: String): Boolean {
@@ -143,9 +159,14 @@ class BoyerMooreEngine {
 }
 
 class HeuristicScoringEngine {
-    private val w1 = 2
-    private val w2 = 3
-    private val w3 = 5
+    private val w1
+        get() = HeuristicSettings.timeWeight
+
+    private val w2
+        get() = HeuristicSettings.velocityWeight
+
+    private val w3
+        get() = HeuristicSettings.spoofWeight
 
     fun computeRiskScore(event: CallEvent, normalizedId: String): Pair<Int, List<String>> {
         val details = mutableListOf<String>()
@@ -189,19 +210,20 @@ class HeuristicScoringEngine {
 fun process6_ActionRouting(score: Int, normalizedId: String, timestamp: Long, details: List<String>): SimulationResult {
     StorageLayer.logExecution(normalizedId, timestamp)
     return when {
-        score >= 7 -> SimulationResult(
+        score >= HeuristicSettings.blockThreshold -> SimulationResult(
             number = normalizedId,
             verdict = Verdict.BLOCK,
             score = score,
             reason = "Malicious threshold reached",
             details = listOf("Action: BLOCK") + details
         )
-        score in 4..6 -> SimulationResult(
-            number = normalizedId,
-            verdict = Verdict.WARN,
-            score = score,
-            reason = "Borderline behavioral anomalies",
-            details = listOf("Action: WARN") + details
+        score in HeuristicSettings.warnThreshold until
+            HeuristicSettings.blockThreshold -> SimulationResult(
+                number = normalizedId,
+                verdict = Verdict.WARN,
+                score = score,
+                reason = "Borderline behavioral anomalies",
+                details = listOf("Action: WARN") + details
         )
         else -> SimulationResult(
             number = normalizedId,

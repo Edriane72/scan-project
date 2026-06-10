@@ -83,6 +83,57 @@
                 android:text="Enable Call HUD" />
         </LinearLayout>
 
+            <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchAdvancedSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Advanced Heuristic Settings" />
+
+    <LinearLayout
+        android:id="@+id/layoutAdvancedSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp">
+
+        <EditText
+            android:id="@+id/editWeightTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Time Anomaly Weight (Default: 2)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/editWeightVelocity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Call Velocity Weight (Default: 3)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/editWeightSpoof"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Neighbor Spoof Weight (Default: 5)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/editWarnThreshold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="WARN Threshold (Default: 4)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/editBlockThreshold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="BLOCK Threshold (Default: 7)"
+            android:inputType="number" />
+    </LinearLayout>
+
         <Button
             android:id="@+id/buttonSimulate"
             android:layout_width="match_parent"

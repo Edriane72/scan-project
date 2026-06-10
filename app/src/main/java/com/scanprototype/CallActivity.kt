@@ -7,6 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.scanprototype.databinding.ActivityCallBinding
+import com.scanprototype.scan.Verdict
 
 class CallActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCallBinding
@@ -45,6 +46,13 @@ class CallActivity : AppCompatActivity() {
         binding.buttonKeypadClose.setOnClickListener { hideKeypadOverlay() }
 
         binding.keypadOverlay.setOnClickListener { hideKeypadOverlay() }
+
+        val verdict = intent.getStringExtra(EXTRA_VERDICT)
+
+        if (verdict == "WARN") {
+            showWarnPopup()
+        }
+
         startCallSimulation()
     }
 
@@ -148,8 +156,20 @@ class CallActivity : AppCompatActivity() {
         handler.postDelayed({ finish() }, 250)
     }
 
+    private fun showWarnPopup() {
+        AlertDialog.Builder(this)
+            .setTitle("SCAN Warning")
+            .setMessage(
+                "This caller has suspicious behavioral indicators.\n\nProceed with caution."
+            )
+            .setPositiveButton("Continue") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
     companion object {
         const val EXTRA_CALLER_NUMBER = "EXTRA_CALLER_NUMBER"
         const val EXTRA_CALLER_NAME = "EXTRA_CALLER_NAME"
+        const val EXTRA_VERDICT = "EXTRA_VERDICT"
     }
 }
