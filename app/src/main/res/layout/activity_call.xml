@@ -5,6 +5,8 @@
     android:background="#FFFFFF">
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -13,13 +15,15 @@
         android:paddingTop="32dp"
         android:paddingBottom="24dp">
 
-        <ImageView
-            android:id="@+id/imageAvatar"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/call_hud_avatar_circle"
-            android:contentDescription="Contact avatar" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageCallerAvatar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/default_avatar"
+        android:scaleType="centerCrop"
+        android:contentDescription="Caller Avatar"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
 
         <TextView
             android:id="@+id/textCallerName"
@@ -102,7 +106,7 @@
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:background="@drawable/call_hud_button_circle"
-                    android:src="@android:drawable/ic_dialog_dialer"
+                    android:src="@drawable/outline_keyboard_keys_24"
                     android:tint="#616161"
                     android:contentDescription="Keypad" />
 
@@ -163,7 +167,7 @@
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:background="@drawable/call_hud_button_circle"
-                    android:src="@android:drawable/ic_menu_add"
+                    android:src="@drawable/outline_add_2_24"
                     android:tint="#616161"
                     android:contentDescription="Add Call" />
 
@@ -189,7 +193,7 @@
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:background="@drawable/call_hud_button_circle"
-                    android:src="@android:drawable/ic_media_pause"
+                    android:src="@drawable/outline_pause_24"
                     android:tint="#616161"
                     android:contentDescription="Hold" />
 
@@ -215,7 +219,7 @@
                     android:layout_width="72dp"
                     android:layout_height="72dp"
                     android:background="@drawable/call_hud_button_circle"
-                    android:src="@android:drawable/ic_menu_edit"
+                    android:src="@drawable/outline_fiber_manual_record_24"
                     android:tint="#616161"
                     android:contentDescription="Record" />
 
@@ -244,7 +248,7 @@
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:background="@drawable/call_hud_end_circle"
-                android:src="@android:drawable/ic_menu_call"
+                android:src="@drawable/outline_call_end_24"
                 android:tint="#FFFFFF"
                 android:contentDescription="End call" />
         </LinearLayout>

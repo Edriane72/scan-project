@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"  
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,12 +13,14 @@
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageCallerAvatar"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@android:drawable/sym_def_app_icon"
-        android:contentDescription="Caller Avatar" />
+        android:src="@drawable/default_avatar"
+        android:scaleType="centerCrop"
+        android:contentDescription="Caller Avatar"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
 
     <TextView
         android:id="@+id/textCallerName"
@@ -48,21 +52,56 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/buttonDecline"
-            android:layout_width="140dp"
-            android:layout_height="64dp"
-            android:text="Decline" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/buttonDecline"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:background="@drawable/call_decline_circle"
+                android:src="@android:drawable/sym_call_outgoing"
+                android:rotation="135"
+                android:tint="#FFFFFF"
+                android:contentDescription="Decline" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Decline"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
 
         <Space
-            android:layout_width="32dp"
+            android:layout_width="64dp"
             android:layout_height="1dp" />
 
-        <Button
-            android:id="@+id/buttonAnswer"
-            android:layout_width="140dp"
-            android:layout_height="64dp"
-            android:text="Answer" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/buttonAnswer"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:background="@drawable/call_answer_circle"
+                android:src="@android:drawable/sym_action_call"
+                android:tint="#FFFFFF"
+                android:contentDescription="Answer" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Answer"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
