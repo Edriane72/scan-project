@@ -15,6 +15,7 @@ object HeuristicSettings {
     var timeWeight = 2
     var velocityWeight = 3
     var spoofWeight = 5
+    var blacklistWeight = 10
 
     var warnThreshold = 4
     var blockThreshold = 7
@@ -29,20 +30,44 @@ data class SimulationResult(
 )
 
 object StorageLayer {
-    const val deviceNumber: String = "639171234567"
+    var deviceNumber: String = ""
 
     val savedContacts: Set<String> = setOf(
+        // placeholder numbers for testing whitelist scenarios
         "639171112222",
         "639189998888",
         "639171234567"
     )
 
     val blacklist: List<String> = listOf(
-        "91799",
-        "1800555",
-        "0917123",
-        "0918123",
-        "0999210"
+
+        // Bank impersonation scams
+        "639178503081",
+        "639178537084",
+        "639479938401",
+        "639688756584",
+        "639171634761",
+
+        // One-ring / robocaller scams
+        "639479171846",
+        "639479171928",
+        "639479171947",
+        "639479171979",
+        "639178347233",
+        "639178063674",
+
+        // Numbers submitted for NTC blocking
+        "639066778059",
+        "639947289642",
+        "639754424042",
+
+        // Crowdsourced scam numbers
+        "639661971392",
+        "639102576320",
+        "639850329362",
+        "639952647035",
+        "639166023529",
+        "639623984341"
     )
 
     private val callHistoryLogs: MutableMap<String, MutableList<Long>> = mutableMapOf()
@@ -168,11 +193,15 @@ class HeuristicScoringEngine {
     private val w3
         get() = HeuristicSettings.spoofWeight
 
+    private val w4
+        get() = HeuristicSettings.blacklistWeight
+
     fun computeRiskScore(event: CallEvent, normalizedId: String): Pair<Int, List<String>> {
         val details = mutableListOf<String>()
         var h1 = 0
         var h2 = 0
         var h3 = 0
+        var h4 = 0
 
         val hour = getHourFromEpoch(event.timestamp)
         if (hour >= 23 || hour < 6) {
@@ -186,6 +215,20 @@ class HeuristicScoringEngine {
             details.add("Call velocity anomaly detected ($recentCalls prior calls in 24h)")
         }
 
+        val bmEngine = BoyerMooreEngine()
+
+        if (
+            bmEngine.scanAgainstBlacklist(
+                normalizedId,
+                StorageLayer.blacklist
+            )
+        ) {
+            h4 = 1
+            details.add(
+                "Blacklist pattern matched"
+            )
+        }
+
         if (normalizedId.length >= 6 && StorageLayer.deviceNumber.length >= 6) {
             val incomingPrefix = normalizedId.substring(0, 6)
             val devicePrefix = StorageLayer.deviceNumber.substring(0, 6)
@@ -195,7 +238,7 @@ class HeuristicScoringEngine {
             }
         }
 
-        val score = (w1 * h1) + (w2 * h2) + (w3 * h3)
+        val score = (w1 * h1) + (w2 * h2) + (w3 * h3) + (w4 * h4)
         if (score == 0) {
             details.add("No heuristic anomalies detected")
         }
@@ -254,18 +297,6 @@ fun executeSimulationPipeline(event: CallEvent): SimulationResult {
             score = 0,
             reason = "Whitelist optimization matched",
             details = listOf("Whitelist bypass: saved contact matched")
-        )
-    }
-
-    val bmEngine = BoyerMooreEngine()
-    if (bmEngine.scanAgainstBlacklist(normalizedId, StorageLayer.blacklist)) {
-        StorageLayer.logExecution(normalizedId, event.timestamp)
-        return SimulationResult(
-            number = normalizedId,
-            verdict = Verdict.BLOCK,
-            score = 100,
-            reason = "Fast-path block: malicious blacklist pattern detected",
-            details = listOf("Boyer-Moore malicious pattern match")
         )
     }
 

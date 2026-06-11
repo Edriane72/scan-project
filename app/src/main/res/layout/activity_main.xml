@@ -38,6 +38,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="User SIM Number"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/editUserNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter user's SIM number"
+            android:inputType="phone"
+            android:paddingBottom="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="CNAM (optional)"
             android:textStyle="bold" />
 
@@ -52,14 +66,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Timestamp (epoch ms, optional)"
+            android:text="Call Hour (0-23)"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editTimestamp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Leave blank to use current time"
+            android:hint="Example: 2 = 2 AM, 23 = 11 PM"
             android:inputType="number"
             android:paddingBottom="16dp" />
 

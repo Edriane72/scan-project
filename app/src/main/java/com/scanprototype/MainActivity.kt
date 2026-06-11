@@ -11,6 +11,7 @@ import com.scanprototype.databinding.ActivityMainBinding
 import com.scanprototype.scan.CallEvent
 import com.scanprototype.scan.executeSimulationPipeline
 import com.scanprototype.scan.StorageLayer
+import com.scanprototype.scan.DataNormalizer
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -61,16 +62,74 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        val rawTimestamp = binding.editTimestamp.text.toString().trim()
-        val timestamp = if (rawTimestamp.isEmpty()) {
-            System.currentTimeMillis()
-        } else {
-            rawTimestamp.toLongOrNull() ?: run {
-                Toast.makeText(this, "Invalid timestamp value.", Toast.LENGTH_SHORT).show()
-                return
-            }
+        val userNumber =
+            binding.editUserNumber.text.toString().trim()
+
+        if (userNumber.isEmpty()) {
+            Toast.makeText(
+                this,
+                "Please enter a user SIM number.",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
         }
 
+        val rawHour = binding.editTimestamp.text.toString().trim()
+
+        val timestamp = if (rawHour.isEmpty()) {
+
+            System.currentTimeMillis()
+
+        } else {
+
+            val hour = rawHour.toIntOrNull()
+
+        if (hour == null || hour !in 0..23) {
+
+            Toast.makeText(
+                this,
+                "Please enter an hour between 0 and 23.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
+
+            val calendar = java.util.Calendar.getInstance()
+
+            calendar.set(
+                java.util.Calendar.HOUR_OF_DAY,
+                hour
+            )
+
+            calendar.set(
+                java.util.Calendar.MINUTE,
+                0
+            )
+
+            calendar.set(
+                java.util.Calendar.SECOND,
+                0
+            )
+
+            calendar.set(
+                java.util.Calendar.MILLISECOND,
+                0
+            )
+
+            calendar.timeInMillis
+        }
+
+        if (userNumber.isEmpty()) {
+            Toast.makeText(
+                this,
+                "Please enter a user SIM number.",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        StorageLayer.deviceNumber = DataNormalizer.normalize(userNumber)
         val cnam = binding.editCnam.text.toString().trim()
         val event = CallEvent(timestamp = timestamp, callerId = rawNumber, cnam = cnam)
         val result = executeSimulationPipeline(event)
