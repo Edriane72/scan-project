@@ -75,12 +75,6 @@ class MainActivity : AppCompatActivity() {
         val event = CallEvent(timestamp = timestamp, callerId = rawNumber, cnam = cnam)
         val result = executeSimulationPipeline(event)
 
-        Toast.makeText(
-            this,
-            "VERDICT = ${result.verdict}",
-            Toast.LENGTH_LONG
-        ).show()
-
         binding.textVerdict.text =
             "${result.verdict} (score=${result.score})"
 

@@ -16,7 +16,6 @@ class CallActivity : AppCompatActivity() {
     private var muteEnabled = false
     private var speakerEnabled = false
     private var connectedSeconds = 0
-    private val stateRunnables = mutableListOf<Runnable>()
 
     private enum class CallState {
         DIALING,
@@ -73,7 +72,6 @@ class CallActivity : AppCompatActivity() {
 
     private fun scheduleStateTransition(delayMs: Long, action: () -> Unit) {
         val runnable = Runnable { action() }
-        stateRunnables.add(runnable)
         handler.postDelayed(runnable, delayMs)
     }
 
@@ -138,16 +136,6 @@ class CallActivity : AppCompatActivity() {
 
     private fun hideKeypadOverlay() {
         binding.keypadOverlay.visibility = View.GONE
-    }
-
-    private fun showMoreOptions() {
-        val options = arrayOf("Add to contacts", "Send message", "Call settings")
-        AlertDialog.Builder(this)
-            .setTitle("More options")
-            .setItems(options) { dialog, which ->
-                dialog.dismiss()
-            }
-            .show()
     }
 
     private fun endCall() {
