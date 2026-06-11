@@ -39,8 +39,10 @@ class IncomingCallActivity : AppCompatActivity() {
 
             "BLOCK" -> {
                 binding.buttonAnswer.visibility = View.GONE
+                binding.buttonDecline.visibility = View.GONE
 
-                binding.buttonDecline.contentDescription = "Dismiss"
+                binding.textAnswer.visibility = View.GONE
+                binding.textDecline.visibility = View.GONE
 
                 showBlockedPopup()
             }
