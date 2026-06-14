@@ -280,13 +280,17 @@ fun process6_ActionRouting(score: Int, normalizedId: String, timestamp: Long, de
 
 fun executeSimulationPipeline(event: CallEvent): SimulationResult {
     val normalizedId = DataNormalizer.normalize(event.callerId)
-    if (normalizedId.isEmpty()) {
+    if (!normalizedId.matches(Regex("^639\\d{9}$"))) {
         return SimulationResult(
-            number = event.callerId,
-            verdict = Verdict.WARN,
-            score = 0,
-            reason = "Invalid normalized number",
-            details = listOf("Unable to normalize input call ID")
+            number = normalizedId,
+            verdict = Verdict.BLOCK,
+            score = Int.MAX_VALUE,
+            reason = "Invalid phone number format",
+            details = listOf(
+                "Action: BLOCK",
+                "Number failed validation after normalization",
+                "Expected format: 639XXXXXXXXX"
+            )
         )
     }
 

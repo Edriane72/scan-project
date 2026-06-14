@@ -130,6 +130,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         StorageLayer.deviceNumber = DataNormalizer.normalize(userNumber)
+        val normalizedCaller = DataNormalizer.normalize(rawNumber)
+        if (!normalizedCaller.matches(Regex("^639\\d{9}$"))) {
+            Toast.makeText(
+                this,
+                "Invalid phone number format.",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            return
+        }
         val cnam = binding.editCnam.text.toString().trim()
         val event = CallEvent(timestamp = timestamp, callerId = rawNumber, cnam = cnam)
         val result = executeSimulationPipeline(event)
