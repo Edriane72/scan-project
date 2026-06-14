@@ -131,7 +131,13 @@ class MainActivity : AppCompatActivity() {
 
         StorageLayer.deviceNumber = DataNormalizer.normalize(userNumber)
         val normalizedCaller = DataNormalizer.normalize(rawNumber)
-        if (!normalizedCaller.matches(Regex("^639\\d{9}$"))) {
+
+        val isWhitelisted =
+            StorageLayer.savedContacts.contains(normalizedCaller)
+
+        if (!isWhitelisted &&
+            !normalizedCaller.matches(Regex("^639\\d{9}$"))
+        ) {
             Toast.makeText(
                 this,
                 "Invalid phone number format.",
